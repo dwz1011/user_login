@@ -10,4 +10,7 @@
 #
 
 class User < ApplicationRecord
+	vilidates :name, presence: true, length: { maximum: 50 }
+	vilidates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+
 end
