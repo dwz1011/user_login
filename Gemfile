@@ -45,6 +45,7 @@ group :development do
   gem 'rack-livereload', '~> 0.3.16'
   gem 'guard-livereload', '~> 2.5', '>= 2.5.2'
   gem 'annotate', '~> 2.7', '>= 2.7.1'
+  gem 'rails-erd', '~> 1.5'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
