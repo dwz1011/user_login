@@ -26,14 +26,14 @@ class User < ApplicationRecord
 	validates :password, presence: true, length: { minimum: 6 }
 
 	#返回指定字符串的哈希摘要
-	def User.digest(string)
+	def self.digest(string)
 		cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
 													  BCrypt::Engine.cost
 		BCrypt::password.create(string, cost: cost)
 	end
 
 	#返回一个随机令牌
-	def User.new_token
+	def self.new_token
 		SecureRandom.urlsafe_base64
 	end
 
