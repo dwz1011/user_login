@@ -25,18 +25,20 @@ class User < ApplicationRecord
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }
 
+	class << self
 	#返回指定字符串的哈希摘要
-	def self.digest(string)
-		cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-													  BCrypt::Engine.cost
-		BCrypt::password.create(string, cost: cost)
-	end
+		def digest(string)
+			cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+														  BCrypt::Engine.cost
+			BCrypt::password.create(string, cost: cost)
+		end
 
-	#返回一个随机令牌
-	def self.new_token
-		SecureRandom.urlsafe_base64
+		#返回一个随机令牌
+		def new_token
+			SecureRandom.urlsafe_base64
+		end
 	end
-
+	
 	#在数据库中记住用户
 	def remember
 		self.remember_token = User.new_token
