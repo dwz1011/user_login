@@ -45,6 +45,11 @@ class User < ApplicationRecord
 		update_attribute(:remember_digest, User.digest(remember_token))
 	end
 
+	#忘记用户
+	def forget
+		update_attribute(:remember_digest, nil)
+	end
+
 	#如果指定的令牌和摘要匹配，返回true
 	def autenticated?(remember_token)  #autenticated?类似与has_secure_password提供的autenticated的方法
 		BCrypt::Password.new(remember_digest).is_password?(remember_token)	#确认记忆令牌与用户的记忆摘要匹配
