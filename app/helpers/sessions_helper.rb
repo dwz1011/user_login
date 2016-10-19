@@ -13,6 +13,12 @@ module SessionsHelper
 		#存储 cookie后，再访问页面时可以使用下面的代码取回用户
 		cookies.permanent[:remember_token] = user.remember_token
 	end
+
+	# 如果指定用户是当前用户，返回 true
+	def current_user?(user)
+		user == current_user
+	end
+
 	#返回当前登录的用户（如果有的话）
 	def current_user
 		if (user_id = session[:user_id])

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :log_in_user, only: [:edit, :update]
+  before_action :currect_user, only: [:edit, :update]
 
   def new
   	@user = User.new
@@ -22,11 +23,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       #更新成功
       flash[:success] = "更新成功"
@@ -43,11 +44,18 @@ class UsersController < ApplicationController
   	params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
+  #确保用户已登录
   def log_in_user
     unless logged_in?
       flash[:danger] = "请先登录"
       redirect_to login_path
     end
+  end
+
+  #确保正确的用户
+  def currect_user
+    @user = User.find(params[:id])
+    redirect_to(root_path) unless current_user?(@user)
   end
 
 end
