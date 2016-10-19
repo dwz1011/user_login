@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-  before_action :log_in_user, only: [:index, :edit, :update]
+  before_action :log_in_user, only: [:index, :edit, :update, :destroy]
   before_action :currect_user, only: [:edit, :update]
+  #限制只有管理员可以删除
+  before_action :admin_user, only: [:destroy]
 
   def index
     @users = User.paginate(page: params[:page]) 
@@ -42,6 +44,12 @@ class UsersController < ApplicationController
     end       
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "删除成功"
+    redirect_to users_url
+  end
+
   private
 
   def user_params
@@ -62,6 +70,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # flash[:danger] = "只能编辑当前用户"
     redirect_to(root_path) unless current_user?(@user)
+  end
+
+  #确保是管理员
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
   end
 
 end
