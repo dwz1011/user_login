@@ -10,6 +10,7 @@
 #  password_digest  :string(255)
 #  remember_ddigest :string(255)
 #  remember_digest  :string(255)
+#  admin            :boolean
 #
 # Indexes
 #
