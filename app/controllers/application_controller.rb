@@ -6,13 +6,13 @@ class ApplicationController < ActionController::Base
   # 	render html: 'hello world!'
   # end 
 
-  before_action :authenticate_user 
+  # before_action :authenticate_user 
 
-  private
-  	def authenticate_user
-  		unless !current_user.nil?
-  			redirect_to login_path
-  		end
-  	end
+  # private
+  # 	def authenticate_user
+  # 		unless !current_user.nil?
+  # 			redirect_to login_path
+  # 		end
+  # 	end
 
 end
