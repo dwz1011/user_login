@@ -47,6 +47,7 @@ class UsersController < ApplicationController
   #确保用户已登录
   def log_in_user
     unless logged_in?
+      store_location
       flash[:danger] = "请先登录"
       redirect_to login_path
     end
@@ -55,6 +56,7 @@ class UsersController < ApplicationController
   #确保正确的用户
   def currect_user
     @user = User.find(params[:id])
+    flash[:danger] = "只能编辑当前用户"
     redirect_to(root_path) unless current_user?(@user)
   end
 
