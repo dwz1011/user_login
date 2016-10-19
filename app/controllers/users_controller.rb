@@ -3,8 +3,8 @@ class UsersController < ApplicationController
   before_action :currect_user, only: [:edit, :update]
 
   def index
-    @users = User.all
-  end
+    @users = User.paginate(page: params[:page]) 
+   end
 
   def new
   	@user = User.new
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   #确保正确的用户
   def currect_user
     @user = User.find(params[:id])
-    flash[:danger] = "只能编辑当前用户"
+    # flash[:danger] = "只能编辑当前用户"
     redirect_to(root_path) unless current_user?(@user)
   end
 

@@ -30,6 +30,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'semantic-ui-sass', '~> 2.2', '>= 2.2.4.0'
 gem 'rails-i18n', '~> 5.0', '>= 5.0.1'
 gem 'paranoia', '~> 2.2.0.pre'
+gem 'faker', '1.6.3'
+gem 'will_paginate', '3.1.0'
+gem 'bootstrap-will_paginate', '0.0.10'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
       # #记住用户
       # remember user
   		redirect_to user
+      redirect_back_or user
   	else
   		flash.now[:danger] = '用户或密码错误'
   		render 'new'
