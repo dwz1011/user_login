@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :log_in_user, only: [:edit, :update]
+
   def new
   	@user = User.new
   end
@@ -39,6 +41,13 @@ class UsersController < ApplicationController
 
   def user_params
   	params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def log_in_user
+    unless logged_in?
+      flash[:danger] = "请先登录"
+      redirect_to login_path
+    end
   end
 
 end
