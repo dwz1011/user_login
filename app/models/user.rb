@@ -2,15 +2,16 @@
 #
 # Table name: users
 #
-#  id               :integer          not null, primary key
-#  name             :string(255)
-#  email            :string(255)
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  password_digest  :string(255)
-#  remember_ddigest :string(255)
-#  remember_digest  :string(255)
-#  admin            :boolean
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  email             :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  password_digest   :string(255)
+#  admin             :boolean          default(TRUE)
+#  activation_digest :string(255)
+#  activated         :boolean          default(FALSE)
+#  activated_at      :datetime
 #
 # Indexes
 #
@@ -18,7 +19,8 @@
 #
 
 class User < ApplicationRecord
-	attr_accessor :remember_token
+	attr_accessor :remember_token, :activation_token
+	before_create :downcase_email
 	before_save { self.email = email.downcase }	#把用户的email地址转换成小写
 	validates :name, presence: true, length: { maximum: 50 }
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d]+\.[a-z]+\z/i
@@ -56,4 +58,16 @@ class User < ApplicationRecord
 		return false if remember_digest.nil?	#处理没有记忆的方法
 		BCrypt::Password.new(remember_digest).is_password?(remember_token)	#确认记忆令牌与用户的记忆摘要匹配
 	end
+
+	#把电子邮件地址转换成小写
+	def downcase_email
+		self.email = email.downcase
+	end
+
+	#创建并赋值激活令牌和摘要
+	def create_activation_digest
+		self.activation_token = User.new_token
+		self.activation_digest = User.digest(activation_token)
+	end
+
 end
