@@ -28,6 +28,8 @@ class User < ApplicationRecord
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }
 
+	has_many :microposts
+
 	class << self
 	#返回指定字符串的哈希摘要
 		def digest(string)
