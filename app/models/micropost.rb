@@ -20,8 +20,11 @@
 
 class Micropost < ApplicationRecord
   belongs_to :user
+  #排序微博
+  default_scope -> { order(created_at: :desc) }
   #验证微博的user_id是否存在
   validates :user_id, presence: true
 
   validates :content, presence: true, lenght: { maximum: 140 }
+
 end

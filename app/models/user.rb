@@ -28,7 +28,7 @@ class User < ApplicationRecord
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }
 
-	has_many :microposts
+	has_many :microposts, dependent: :destory
 
 	class << self
 	#返回指定字符串的哈希摘要
