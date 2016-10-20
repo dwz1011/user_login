@@ -25,6 +25,6 @@ class Micropost < ApplicationRecord
   #验证微博的user_id是否存在
   validates :user_id, presence: true
 
-  validates :content, presence: true, lenght: { maximum: 140 }
+  validates :content, presence: true, length: { maximum: 140 }
 
 end
