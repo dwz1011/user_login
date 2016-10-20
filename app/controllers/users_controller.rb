@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :log_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :currect_user, only: [:edit, :update]
   #限制只有管理员可以删除
   before_action :admin_user, only: [:destroy]
@@ -61,14 +61,7 @@ class UsersController < ApplicationController
   	params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  #确保用户已登录
-  def log_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "请先登录"
-      redirect_to login_path
-    end
-  end
+  
 
   #确保正确的用户
   def currect_user
