@@ -44,6 +44,13 @@ class User < ApplicationRecord
 		end
 	end
 
+
+	def feed
+		Micropost.where("user_id = ?", id)
+	end
+
+
+
 	#在数据库中记住用户
 	def remember
 		self.remember_token = User.new_token
